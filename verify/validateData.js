@@ -24,5 +24,37 @@ const loginValidation = (data) => {
   return schema.validate(data);
 };
 
+//Create list class include grade and number
+const createClassValidation = (data) => {
+  const schema = joi.object({
+    grade: joi.number().integer().max(12).min(10),
+    number: joi.number().integer().max(25).min(1),
+  });
+
+  return schema.validate(data);
+};
+
+//Update class
+const updateClassValidation = (data) => {
+  const schema = joi.object({
+    idClass: joi.string().required(),
+    name: joi.string().min(1).max(10).required(),
+  });
+
+  return schema.validate(data);
+};
+
+//id class
+const idClassValidation = (data) => {
+  const schema = joi.object({
+    idClass: joi.string().required(),
+  });
+
+  return schema.validate(data);
+};
+
+module.exports.idClassValidation= idClassValidation,
+module.exports.updateClassValidation= updateClassValidation,
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.createClassValidation = createClassValidation;

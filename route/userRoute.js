@@ -8,7 +8,7 @@ const validate = require("../verify/validateData");
 //REGISTER ACCOUNT
 router.post("/register", async (req, res) => {
   //Validate data before save user
-  const valid = await validate.registerValidation({...req.body});
+  const valid = await validate.registerValidation({ ...req.body });
   if (valid.error)
     return res.status(400).json({ message: valid.error.details[0].message });
 
@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   //Validate data before check login
-  const valid= await validate.loginValidation({...req.body})
+  const valid = await validate.loginValidation({ ...req.body });
   if (valid.error)
     return res.status(400).json({ message: valid.error.details[0].message });
 
@@ -49,8 +49,7 @@ router.post("/login", async (req, res) => {
   if (!acceptLogin) return res.json({ message: "Email or password wrong" });
 
   //Send token
-  console.log(process.env.TOKEN_SECRET);
-  const Token = jwt.sign({ _id: user._id },process.env.TOKEN_SECRET);
+  const Token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
   res.header("auth-token", Token);
   res.json({ token: Token });
 });

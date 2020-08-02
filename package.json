@@ -18,7 +18,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.25"
+    "mongoose": "^5.9.25",
+    "xlsx": "^0.16.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
