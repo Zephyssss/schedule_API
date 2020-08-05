@@ -53,8 +53,32 @@ const idClassValidation = (data) => {
   return schema.validate(data);
 };
 
-module.exports.idClassValidation= idClassValidation,
-module.exports.updateClassValidation= updateClassValidation,
+//Create subject
+const createSubjectValidation = (data) => {
+  const schema = joi.object({
+    idClass: joi.string().required(),
+    name: joi.string().min(1).max(30).required(),
+    sortName: joi.string().min(1).max(10).required().required(),
+    nLesson: joi.number().integer().min(1).max(30).required(),
+    require: joi.string().length(10).pattern(new RegExp('^[0-1]*$')),
+  });
+
+  return schema.validate(data);
+};
+
+//id subject
+const idSubjectValidation = (data) => {
+  const schema = joi.object({
+    idSubject: joi.string().required(),
+  });
+
+  return schema.validate(data);
+};
+
+module.exports.createSubjectValidation = createSubjectValidation;
+module.exports.idSubjectValidation = idSubjectValidation;
+module.exports.idClassValidation = idClassValidation;
+module.exports.updateClassValidation = updateClassValidation;
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.createClassValidation = createClassValidation;

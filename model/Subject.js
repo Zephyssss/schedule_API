@@ -22,9 +22,13 @@ const Subject = new mongoose.Schema(
       type: Number,
       require: true,
     },
-    nLession: {
+    nLesson: {
       type: Number,
       required: true,
+    },
+    require: {
+      type: String,
+      default: "0000000000",
     },
   },
   {

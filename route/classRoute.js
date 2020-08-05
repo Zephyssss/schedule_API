@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
             name: data[i].name,
             sortName: data[i].sortName,
             grade: data[i].grade,
-            nLession: data[i].nLession,
+            nLesson: data[i].nLesson,
           });
 
           try {
@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
   if (valid.error) {
     try {
       const list_class = await Class.find({ id_user: req.user._id });
-      res.status(200).json(list_class);
+      res.status(200).json({ total: list_class.length, data: list_class });
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
