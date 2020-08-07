@@ -106,12 +106,16 @@ router.put("/", async (req, res) => {
   if (valid.error)
     return res.status(400).json({ message: valid.error.details[0].message });
 
+  const findbyName = await Class.findOne({ name: req.body.name });
+  if (findbyName) return res.status(400).json({ message: "name is exist" });
+
   try {
     const update = await Class.findByIdAndUpdate(req.body.idClass, {
       name: req.body.name,
     });
-    if (!update) return res.status(404).json({ message: "Not found" });
-    res.status(200).json(update);
+    const find = await Class.findOne({ _id: req.body.idClass });
+    if (!find) return res.status(404).json({ message: "Not found" });
+    res.status(200).json(find);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

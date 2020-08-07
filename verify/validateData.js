@@ -58,9 +58,22 @@ const createSubjectValidation = (data) => {
   const schema = joi.object({
     idClass: joi.string().required(),
     name: joi.string().min(1).max(30).required(),
-    sortName: joi.string().min(1).max(10).required().required(),
+    sortName: joi.string().min(1).max(10).required(),
     nLesson: joi.number().integer().min(1).max(30).required(),
-    require: joi.string().length(10).pattern(new RegExp('^[0-1]*$')),
+    require: joi.string().length(10).pattern(new RegExp("^[0-1]*$")),
+  });
+
+  return schema.validate(data);
+};
+
+//Update subject
+const updateSubjectValidation = (data) => {
+  const schema = joi.object({
+    id: joi.string().required(),
+    name: joi.string().min(1).max(30),
+    sortName: joi.string().min(1).max(10),
+    nLesson: joi.number().integer().min(1).max(30),
+    require: joi.string().length(10).pattern(new RegExp("^[0-1]*$")),
   });
 
   return schema.validate(data);
@@ -75,6 +88,22 @@ const idSubjectValidation = (data) => {
   return schema.validate(data);
 };
 
+//Create teacher
+const createTeacherValidation = (data) => {
+  const schema = joi.object({
+    name: joi.string().required(),
+    teacher_id: joi.string().min(1).max(10).required(),
+    period_per_week: joi.number().integer().min(1).max(30).required(),
+    grade: joi.number().integer().min(10).max(12).required(),
+    subject: joi.string().min(1).max(10).required(),
+    require: joi.string().length(10).pattern(new RegExp("^[0-1]*$")),
+  });
+
+  return schema.validate(data);
+};
+
+module.exports.createTeacherValidation = createTeacherValidation;
+module.exports.updateSubjectValidation = updateSubjectValidation;
 module.exports.createSubjectValidation = createSubjectValidation;
 module.exports.idSubjectValidation = idSubjectValidation;
 module.exports.idClassValidation = idClassValidation;

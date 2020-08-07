@@ -104,6 +104,40 @@ router.post("/", async (req, res) => {
   }
 });
 
+//UPDATE SUBJECT
+router.put("/", async (req, res) => {
+  const valid = await validate.updateSubjectValidation({ ...req.body });
+  if (valid.error)
+    return res.status(400).json({ message: valid.error.details[0].message });
+
+  const findSub = await Subject.findById(req.body.id);
+  if (!findSub) return res.status(404).json({ message: "Not found subjet" });
+
+  if (req.body.name != undefined) findSub.name = req.body.name;
+  if (req.body.nLesson != undefined) findSub.nLesson = req.body.nLesson;
+  if (req.body.require != undefined) findSub.require = req.body.require;
+  if (req.body.sortName != undefined) {
+    if (req.body.sortName.trim() != findSub.sortName.trim()) {
+      const cSubjectwithName = await Subject.findOne({
+        id_class: findSub.id_class,
+        sortName: req.body.sortName.trim(),
+      });
+      console.log(cSubjectwithName);
+      if (cSubjectwithName)
+        return res.status(400).json({ message: "Sort Name exist" });
+      findSub.sortName = req.body.sortName.trim();
+    }
+  }
+
+  try {
+    const update = await Subject.findByIdAndUpdate(findSub._id, findSub);
+    const find = await Subject.findById(findSub._id);
+    res.status(200).json(find);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
 //DELETE SUBJECT BY ID
 router.delete("/", async (req, res) => {
   //validate data before delete class

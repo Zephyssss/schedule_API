@@ -7,6 +7,7 @@ const cors = require("cors");
 const userRoute = require("./route/userRoute");
 const classRoute = require("./route/classRoute");
 const subjectRoute = require("./route/subjectRoute");
+const teacherRoute = require("./route/teacherRoute");
 const verify = require("./verify/verifyToken");
 
 //config with .env and app
@@ -28,6 +29,7 @@ app.use("/user", userRoute);
 app.use(verify);
 app.use("/class", classRoute);
 app.use("/subject",subjectRoute);
+app.use("/teacher",teacherRoute);
 
 //listen request from port process.env.PORT
 app.listen(process.env.PORT, () => {
