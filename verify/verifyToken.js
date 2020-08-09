@@ -6,9 +6,7 @@ function verifyToken(req, res, next) {
 
   //Check client fill auth-token yet!
   if (!token)
-    return res
-      .status(401)
-      .json({ message: "Access Denied, pls fill auth-token" });
+    return res.status(403).json({ message: "Access Denied, please fill auth-token in Header" });
 
   try {
     // Get id user from token and call middleware next()
@@ -16,7 +14,7 @@ function verifyToken(req, res, next) {
     req.user = verified;
     next();
   } catch (err) {
-    res.status(400).json({ message: "Invalid Token" });
+    res.status(401).json({ message: "Unauthorized!" });
   }
 }
 

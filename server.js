@@ -22,14 +22,15 @@ mongoose.connect(process.env.CONNECT_DB, { useNewUrlParser: true }, () => {
 //use middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.get("/document", (req, res) => res.send("<a href=" + process.env.DOC + ">Doccument</a>"));
-app.use("/user", userRoute);
+app.use("/users", userRoute);
 
 //check token
 app.use(verify);
-app.use("/class", classRoute);
-app.use("/subject",subjectRoute);
-app.use("/teacher",teacherRoute);
+app.use("/classes", classRoute);
+app.use("/subjects",subjectRoute);
+app.use("/teachers",teacherRoute);
 
 //listen request from port process.env.PORT
 app.listen(process.env.PORT, () => {
