@@ -8,6 +8,7 @@ const userRoute = require("./route/userRoute");
 const classRoute = require("./route/classRoute");
 const subjectRoute = require("./route/subjectRoute");
 const teacherRoute = require("./route/teacherRoute");
+const scheduleRoute = require("./route/scheduleRoute");
 const verify = require("./verify/verifyToken");
 
 //config with .env and app
@@ -31,6 +32,7 @@ app.use(verify);
 app.use("/classes", classRoute);
 app.use("/subjects",subjectRoute);
 app.use("/teachers",teacherRoute);
+app.use("/schedule",scheduleRoute);
 
 //listen request from port process.env.PORT
 app.listen(process.env.PORT, () => {
